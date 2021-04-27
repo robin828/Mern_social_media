@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         required: true,
     },
-    hashed_password: {
+    password: {
         type: String,
         required: true,
     },
@@ -26,26 +26,29 @@ const userSchema = new mongoose.Schema({
     update: Date
 })
 
-userSchema.virtual('password')
-.set(()=>{
-    this._password = password
-    this.salt = v1
-    this.hashed_password = this.encryptPassword(password)
-})
-.get(()=>{
-    return this._password
-})
+// userSchema.virtual('password')
+// .set(()=>{
+//     console.log(this.password)
 
-userSchema.methods = {
-    encryptPassword(password) {
-        if(!password) return ""; 
-        try {
-            return crypto.createHmac('sha256', this.salt)
-            .update(password)
-            .digest('hex');
-        } catch (err) {
-            return ""
-        }
-    }
-}
+
+//     this._password = password
+//     this.salt = v1
+//     this.hashed_password = this.encryptPassword(password)
+// })
+// .get(()=>{
+//     return this._password
+// })
+
+// userSchema.methods = {
+//     encryptPassword: function(password) {
+//         if(!password) return ""; 
+//         try {
+//             return crypto.createHmac('sha256', this.salt)
+//             .update(password)
+//             .digest('hex');
+//         } catch (err) {
+//             return ""
+//         }
+//     }
+// }
 module.exports = mongoose.model("User", userSchema)

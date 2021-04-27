@@ -16,7 +16,7 @@ const createPosts = (req, res, next) => {
     return next(
       new HttpError('Invalid inputs passed, please check your data.', 422)
     );
-  }s
+  }
     const { body, title } = req.body;
     const post = new Post({
         body,
